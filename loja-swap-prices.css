@@ -1,0 +1,88 @@
+/* ========================================
+   TROCA DE POSIÇÃO: PREÇO À VISTA ↔ PARCELADO
+   Para implementar na loja - Adicione ao final do CSS
+   ======================================== */
+
+/* Reorganiza o container de preços usando flexbox */
+.item-price-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+/* NOVA ORDEM DOS ELEMENTOS */
+/* 1º - Preço parcelado (destaque principal) */
+.js-max-installments-container {
+    order: 1 !important;
+    margin-bottom: 10px !important;
+}
+
+/* 2º - Preço à vista (posição secundária) */
+.item-price-container .js-price-display {
+    order: 2 !important;
+}
+
+/* 3º - Preço comparativo riscado (final) */
+.item-price-container .js-compare-price-display {
+    order: 3 !important;
+}
+
+/* ESTILIZAÇÃO DO PREÇO PARCELADO (DESTAQUE) */
+.js-max-installments,
+.js-max-installments .product-installments {
+    font-weight: bold !important;
+    color: #2d5aa0 !important;
+    font-size: 1.15em !important;
+    line-height: 1.3 !important;
+}
+
+.js-installment-amount,
+.js-installment-price {
+    font-weight: bold !important;
+    color: #2d5aa0 !important;
+}
+
+/* ESTILIZAÇÃO DO PREÇO À VISTA (MENOS DESTAQUE) */
+.js-price-display.item-price {
+    font-size: 0.9em !important;
+    color: #666 !important;
+    font-weight: normal !important;
+}
+
+/* PREÇO COMPARATIVO (DISCRETO) */
+.js-compare-price-display.price-compare {
+    font-size: 0.85em !important;
+    color: #999 !important;
+    text-decoration: line-through !important;
+}
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 768px) {
+    .js-max-installments {
+        font-size: 1.1em !important;
+    }
+    
+    .js-price-display.item-price {
+        font-size: 0.85em !important;
+    }
+    
+    .item-price-container {
+        gap: 6px !important;
+    }
+}
+
+/* COMPATIBILIDADE COM DIFERENTES LAYOUTS */
+.product-item .item-price-container,
+.product-card .item-price-container,
+.item-description .item-price-container {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* GARANTIR QUE FUNCIONE EM LISTAGENS E PÁGINAS DE PRODUTO */
+.products-list .item-price-container,
+.product-detail .item-price-container,
+.search-results .item-price-container {
+    display: flex !important;
+    flex-direction: column !important;
+}
