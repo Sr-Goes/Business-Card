@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo - Troca de Posição de Preços</title>
+    <link rel="stylesheet" href="price-swap.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+        
+        .item-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .item-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .price-compare {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 8px;
+        }
+        
+        .item-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .product-installments {
+            color: #2c5aa0;
+            font-size: 14px;
+        }
+        
+        .product-installment-amount {
+            font-weight: bold;
+        }
+        
+        .product-installment-value {
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .instructions {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Demonstração - Troca de Posição de Preços</h1>
+        <p>Este exemplo mostra como trocar a posição do preço à vista com o preço parcelado</p>
+    </div>
+    
+    <div class="instructions">
+        <h3>Como usar:</h3>
+        <ul>
+            <li><strong>Botão azul no canto superior direito:</strong> Troca todos os preços de uma vez</li>
+            <li><strong>Botão "⇅ Trocar preços" em cada produto:</strong> Troca apenas o preço daquele produto específico</li>
+            <li><strong>Via JavaScript:</strong> Use <code>PriceSwapper.toggleAllPrices()</code> ou <code>PriceSwapper.toggleProductPrice(elemento)</code></li>
+        </ul>
+    </div>
+
+    <div class="product-grid">
+        <!-- Produto 1 -->
+        <div class="product-card">
+            <div class="product-image">Imagem do Produto</div>
+            <div class="item-description py-4 px-3" data-store="product-item-info-264505755">
+                <a href="#" title="Camiseta Lacoste manga longa" aria-label="Camiseta Lacoste manga longa" class="item-link">
+                    <div class="js-item-name item-name mb-3" data-store="product-item-name-264505755">Camiseta Lacoste manga longa</div>
+                    <div class="item-price-container mb-1" data-store="product-item-price-264505755">
+                        <span class="js-compare-price-display price-compare" style="display:inline-block;">
+                            R$599,99
+                        </span>
+                        <span class="js-price-display item-price" data-product-price="47999">
+                            R$479,99
+                        </span>
+                    </div>
+                </a>
+                <div class="js-max-installments-container js-max-installments item-installments">
+                    <div class="js-max-installments product-installments installment-no-interest">
+                        <span class="js-installment-amount product-installment-amount">6</span>
+                        <span>x de</span>
+                        <span class="js-installment-price product-installment-value">R$80,00</span>
+                        <span>sem juros</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produto 2 -->
+        <div class="product-card">
+            <div class="product-image">Imagem do Produto</div>
+            <div class="item-description py-4 px-3" data-store="product-item-info-264505756">
+                <a href="#" title="Tênis Nike Air Max" aria-label="Tênis Nike Air Max" class="item-link">
+                    <div class="js-item-name item-name mb-3" data-store="product-item-name-264505756">Tênis Nike Air Max</div>
+                    <div class="item-price-container mb-1" data-store="product-item-price-264505756">
+                        <span class="js-compare-price-display price-compare" style="display:inline-block;">
+                            R$899,99
+                        </span>
+                        <span class="js-price-display item-price" data-product-price="69999">
+                            R$699,99
+                        </span>
+                    </div>
+                </a>
+                <div class="js-max-installments-container js-max-installments item-installments">
+                    <div class="js-max-installments product-installments installment-no-interest">
+                        <span class="js-installment-amount product-installment-amount">10</span>
+                        <span>x de</span>
+                        <span class="js-installment-price product-installment-value">R$70,00</span>
+                        <span>sem juros</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produto 3 -->
+        <div class="product-card">
+            <div class="product-image">Imagem do Produto</div>
+            <div class="item-description py-4 px-3" data-store="product-item-info-264505757">
+                <a href="#" title="Jaqueta Adidas" aria-label="Jaqueta Adidas" class="item-link">
+                    <div class="js-item-name item-name mb-3" data-store="product-item-name-264505757">Jaqueta Adidas</div>
+                    <div class="item-price-container mb-1" data-store="product-item-price-264505757">
+                        <span class="js-compare-price-display price-compare" style="display:inline-block;">
+                            R$399,99
+                        </span>
+                        <span class="js-price-display item-price" data-product-price="29999">
+                            R$299,99
+                        </span>
+                    </div>
+                </a>
+                <div class="js-max-installments-container js-max-installments item-installments">
+                    <div class="js-max-installments product-installments installment-no-interest">
+                        <span class="js-installment-amount product-installment-amount">5</span>
+                        <span>x de</span>
+                        <span class="js-installment-price product-installment-value">R$60,00</span>
+                        <span>sem juros</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; text-align: center; color: #666;">
+        <h3>Métodos disponíveis via JavaScript:</h3>
+        <button onclick="PriceSwapper.toggleAllPrices()" style="margin: 5px; padding: 8px 16px;">
+            PriceSwapper.toggleAllPrices()
+        </button>
+        <br>
+        <small>Abra o console do navegador para ver os logs de funcionamento</small>
+    </div>
+
+    <script src="price-swap.js"></script>
+</body>
+</html>

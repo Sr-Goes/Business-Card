@@ -1,0 +1,79 @@
+/* CSS para troca de posição entre preço à vista e parcelado */
+
+.price-swap-container {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.price-swap-container .item-price-container {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.price-swap-container .js-max-installments-container {
+    transition: all 0.3s ease;
+    margin-bottom: 8px;
+}
+
+/* Estilos para quando os preços estão trocados */
+.price-swapped .item-price-container {
+    order: 2;
+}
+
+.price-swapped .js-max-installments-container {
+    order: 1;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/* Animação suave para a troca */
+.price-transition {
+    opacity: 0.7;
+    transform: translateY(-2px);
+}
+
+/* Destaque visual para o preço parcelado quando em posição principal */
+.price-swapped .js-max-installments-container {
+    font-weight: bold;
+    color: #2c5aa0;
+}
+
+.price-swapped .js-max-installments-container .js-installment-price {
+    font-size: 1.1em;
+    color: #e74c3c;
+}
+
+/* Botão de toggle */
+.price-toggle-btn {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+    color: #6c757d;
+}
+
+.price-toggle-btn:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.price-toggle-btn:active {
+    transform: translateY(1px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .price-swap-container {
+        font-size: 14px;
+    }
+    
+    .price-toggle-btn {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+}
