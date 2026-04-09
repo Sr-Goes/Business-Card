@@ -1,4 +1,4 @@
-/* Fênix pixel — outono, pôr do sol, parallax, batimento de asas */
+/* Fênix pixel — outono, pôr do sol, parallax SVG, batimento de asas */
 
 :root {
   --ember-1: #fef08a;
@@ -51,30 +51,33 @@ body {
   outline-offset: 2px;
 }
 
+/* Altura explícita: filhos com % antes colapsavam → só se via o gradiente */
 .scene {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  height: 100dvh;
   min-height: 100dvh;
+  max-height: 100dvh;
   cursor: crosshair;
   overflow: hidden;
 }
 
-/* Céu outono — profundidade em camadas */
+/* Céu outono — contraste com silhuetas escuras em baixo */
 .bg-autumn {
   position: absolute;
   inset: 0;
   z-index: 0;
   background: linear-gradient(
-    188deg,
-    #2d1b35 0%,
-    #4a2c3a 12%,
-    #6b3a3a 28%,
-    #8b4518 48%,
-    #b45309 68%,
-    #c2410c 82%,
-    #9a3412 94%,
-    #422006 100%
+    185deg,
+    #1f1428 0%,
+    #3d2840 18%,
+    #6b3a45 38%,
+    #9a4a32 58%,
+    #c45a28 72%,
+    #e88850 86%,
+    #f0b878 94%,
+    #d89060 100%
   );
 }
 
@@ -84,55 +87,61 @@ body {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 100% 70% at 70% 25%, rgba(251, 191, 36, 0.12) 0%, transparent 45%),
-    radial-gradient(ellipse 80% 50% at 20% 35%, rgba(192, 132, 252, 0.08) 0%, transparent 40%),
-    linear-gradient(to bottom, rgba(45, 27, 53, 0.35) 0%, transparent 42%, rgba(66, 32, 6, 0.25) 100%);
+    radial-gradient(ellipse 90% 55% at 78% 18%, rgba(255, 220, 150, 0.2) 0%, transparent 42%),
+    radial-gradient(ellipse 70% 45% at 18% 28%, rgba(180, 140, 200, 0.1) 0%, transparent 38%),
+    linear-gradient(to bottom, rgba(30, 20, 40, 0.25) 0%, transparent 45%, rgba(120, 60, 30, 0.2) 100%);
 }
 
-/* Sol: baixo, à direita, levemente achatado (fim de tarde) */
+/* Sol: pôr do sol — baixo, direita, inclinado, fora do centro */
 .sun-assembly {
   position: absolute;
   z-index: 2;
-  right: -2%;
-  bottom: 12%;
-  width: min(28vw, 200px);
-  height: min(22vw, 150px);
-  transform: rotate(-14deg);
+  right: -3%;
+  bottom: 6%;
+  width: min(32vw, 220px);
+  height: min(24vw, 168px);
+  transform: rotate(-22deg);
   pointer-events: none;
 }
 
 .sun-glow {
   position: absolute;
-  inset: -40% -50% -30% -40%;
+  inset: -45% -55% -35% -45%;
   background: radial-gradient(
-    ellipse 55% 45% at 50% 50%,
-    rgba(254, 243, 199, 0.55) 0%,
-    rgba(251, 191, 36, 0.25) 35%,
-    rgba(234, 88, 12, 0.08) 55%,
-    transparent 70%
+    ellipse 52% 42% at 50% 50%,
+    rgba(255, 248, 220, 0.65) 0%,
+    rgba(251, 191, 36, 0.35) 32%,
+    rgba(234, 88, 12, 0.12) 55%,
+    transparent 72%
   );
-  filter: blur(2px);
-  image-rendering: pixelated;
+  filter: blur(3px);
 }
 
 .sun-disc {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 68%;
-  height: 58%;
+  left: 52%;
+  top: 58%;
+  width: 72%;
+  height: 52%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(165deg, #fffbeb 0%, #fde047 35%, #f59e0b 85%, #ea580c 100%);
+  background: linear-gradient(158deg, #fffef0 0%, #fde047 28%, #f59e0b 78%, #ea580c 100%);
   box-shadow:
-    0 0 0 3px rgba(251, 191, 36, 0.9),
-    0 0 0 6px rgba(234, 179, 8, 0.45),
-    inset 0 -4px 0 rgba(234, 88, 12, 0.35);
-  border-radius: 48% 52% 50% 50% / 46% 48% 52% 54%;
-  image-rendering: pixelated;
+    0 0 0 3px rgba(254, 215, 120, 0.95),
+    0 0 0 7px rgba(251, 146, 60, 0.4),
+    inset 0 -5px 0 rgba(194, 65, 12, 0.45);
+  border-radius: 50% 48% 52% 50% / 46% 52% 48% 54%;
 }
 
-/* Parallax: movimento contínuo direita → esquerda (ilusão de voo) */
-.parallax {
+.landscape-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Parallax: dois tiles × 100vw → translate -100vw (direita para esquerda) */
+.parallax-band {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -141,131 +150,61 @@ body {
   pointer-events: none;
 }
 
-.parallax__track {
-  width: 200%;
-  height: 100%;
-  background-repeat: repeat-x;
-  background-size: 50% 100%;
-  will-change: transform;
-}
-
-.parallax--far {
+.parallax-band--far {
   z-index: 3;
-  height: 42%;
-  opacity: 0.85;
+  height: 34vh;
+  min-height: 120px;
 }
 
-.parallax__track--far {
-  animation: drift 110s linear infinite;
-  background-image: linear-gradient(
-      to top,
-      transparent 0%,
-      transparent 55%,
-      rgba(55, 35, 25, 0.5) 55%,
-      rgba(45, 28, 20, 0.75) 100%
-    ),
-    radial-gradient(ellipse 120% 80% at 20% 100%, rgba(62, 39, 28, 0.9) 0%, transparent 55%),
-    radial-gradient(ellipse 100% 70% at 45% 100%, rgba(74, 45, 32, 0.85) 0%, transparent 50%),
-    radial-gradient(ellipse 90% 65% at 72% 100%, rgba(55, 38, 28, 0.88) 0%, transparent 48%),
-    radial-gradient(ellipse 110% 75% at 92% 100%, rgba(48, 32, 24, 0.9) 0%, transparent 52%);
-}
-
-.parallax--ridge {
+.parallax-band--ridge {
   z-index: 4;
-  height: 32%;
+  height: 42vh;
+  min-height: 150px;
 }
 
-.parallax__track--ridge {
-  animation: drift 75s linear infinite;
-  background-image: linear-gradient(to top, transparent 40%, rgba(88, 52, 35, 0.4) 100%),
-    radial-gradient(ellipse 55% 90% at 8% 100%, #5c3d2e 0%, transparent 58%),
-    radial-gradient(ellipse 45% 85% at 22% 100%, #4a3020 0%, transparent 55%),
-    radial-gradient(ellipse 50% 88% at 38% 100%, #6b4423 0%, transparent 56%),
-    radial-gradient(ellipse 48% 82% at 55% 100%, #3d2818 0%, transparent 54%),
-    radial-gradient(ellipse 52% 86% at 72% 100%, #5c3a22 0%, transparent 55%),
-    radial-gradient(ellipse 46% 80% at 88% 100%, #422818 0%, transparent 52%);
-}
-
-.parallax--forest {
+.parallax-band--forest {
   z-index: 5;
-  height: 38%;
+  height: 52vh;
+  min-height: 220px;
 }
 
-/* Árvores outono — silhuetas + copas */
-.parallax__track--forest {
-  animation: drift 48s linear infinite;
-  background-image: linear-gradient(to top, rgba(30, 18, 12, 0.3) 0%, transparent 45%),
-    radial-gradient(ellipse 35% 55% at 5% 100%, #78350f 0%, transparent 62%),
-    radial-gradient(ellipse 42% 48% at 5% 78%, #b45309 0%, transparent 70%),
-    radial-gradient(ellipse 38% 52% at 5% 72%, #ca8a04 0%, transparent 68%),
-    radial-gradient(ellipse 32% 58% at 18% 100%, #422006 0%, transparent 60%),
-    radial-gradient(ellipse 45% 50% at 18% 76%, #d97706 0%, transparent 72%),
-    radial-gradient(ellipse 40% 54% at 18% 70%, #eab308 0%, transparent 70%),
-    radial-gradient(ellipse 36% 56% at 32% 100%, #451a03 0%, transparent 58%),
-    radial-gradient(ellipse 48% 52% at 32% 74%, #b45309 0%, transparent 74%),
-    radial-gradient(ellipse 44% 50% at 32% 68%, #f59e0b 0%, transparent 72%),
-    radial-gradient(ellipse 34% 58% at 48% 100%, #3f2d1f 0%, transparent 60%),
-    radial-gradient(ellipse 46% 51% at 48% 75%, #9a3412 0%, transparent 73%),
-    radial-gradient(ellipse 42% 48% at 48% 69%, #ea580c 0%, transparent 71%),
-    radial-gradient(ellipse 38% 57% at 63% 100%, #292018 0%, transparent 59%),
-    radial-gradient(ellipse 44% 50% at 63% 76%, #c2410c 0%, transparent 72%),
-    radial-gradient(ellipse 40% 52% at 63% 70%, #fb923c 0%, transparent 70%),
-    radial-gradient(ellipse 33% 59% at 78% 100%, #3d2415 0%, transparent 61%),
-    radial-gradient(ellipse 47% 49% at 78% 74%, #a16207 0%, transparent 73%),
-    radial-gradient(ellipse 43% 51% at 78% 68%, #fcd34d 0%, transparent 71%),
-    radial-gradient(ellipse 36% 57% at 92% 100%, #422006 0%, transparent 58%),
-    radial-gradient(ellipse 45% 50% at 92% 75%, #b45309 0%, transparent 72%),
-    radial-gradient(ellipse 41% 53% at 92% 69%, #fbbf24 0%, transparent 70%);
-}
-
-.parallax--bushes {
+.parallax-band--bushes {
   z-index: 6;
-  height: 22%;
+  height: 20vh;
+  min-height: 72px;
 }
 
-.parallax__track--bushes {
-  animation: drift 32s linear infinite;
-  background-image: linear-gradient(to top, rgba(20, 12, 8, 0.5) 0%, transparent 100%),
-    radial-gradient(ellipse 28% 45% at 10% 100%, #292018 0%, transparent 55%),
-    radial-gradient(ellipse 32% 40% at 10% 88%, #422006 0%, transparent 60%),
-    radial-gradient(ellipse 26% 42% at 28% 100%, #1c1410 0%, transparent 54%),
-    radial-gradient(ellipse 30% 38% at 28% 90%, #5c2e0a 0%, transparent 58%),
-    radial-gradient(ellipse 24% 44% at 46% 100%, #241810 0%, transparent 53%),
-    radial-gradient(ellipse 34% 41% at 46% 87%, #78350f 0%, transparent 59%),
-    radial-gradient(ellipse 27% 43% at 64% 100%, #1a120c 0%, transparent 54%),
-    radial-gradient(ellipse 31% 39% at 64% 89%, #92400e 0%, transparent 57%),
-    radial-gradient(ellipse 25% 45% at 82% 100%, #201810 0%, transparent 52%),
-    radial-gradient(ellipse 33% 40% at 82% 88%, #6b3010 0%, transparent 58%),
-    radial-gradient(ellipse 29% 42% at 96% 100%, #2d1810 0%, transparent 55%),
-    radial-gradient(ellipse 31% 38% at 96% 91%, #451a03 0%, transparent 56%);
-}
-
-.parallax--ground {
+.parallax-band--ground {
   z-index: 7;
-  height: 14%;
+  height: 11vh;
+  min-height: 48px;
 }
 
-.parallax__track--ground {
-  animation: drift 22s linear infinite;
-  background-image: repeating-linear-gradient(
-      105deg,
-      #2d1810 0px,
-      #2d1810 3px,
-      #3d2418 3px,
-      #3d2418 6px,
-      #25140c 6px,
-      #25140c 9px
-    ),
-    linear-gradient(to top, #1a0f0a 0%, #3d2818 40%, transparent 100%),
-    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(180, 83, 9, 0.15) 0%, transparent 70%);
+.parallax-mover {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+  animation: parallax-drift var(--drift, 40s) linear infinite;
 }
 
-@keyframes drift {
+.parallax-tile {
+  display: block;
+  width: 100vw;
+  min-width: 100vw;
+  height: 100%;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  shape-rendering: crispEdges;
+}
+
+@keyframes parallax-drift {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-100vw, 0, 0);
   }
 }
 
@@ -276,10 +215,10 @@ body {
   pointer-events: none;
   background: linear-gradient(
     to top,
-    rgba(42, 24, 14, 0.35) 0%,
-    transparent 25%,
-    transparent 70%,
-    rgba(45, 27, 35, 0.12) 100%
+    rgba(25, 12, 8, 0.45) 0%,
+    transparent 22%,
+    transparent 68%,
+    rgba(40, 22, 35, 0.08) 100%
   );
 }
 
@@ -289,13 +228,13 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 9;
-  opacity: 0.1;
+  opacity: 0.08;
   background: repeating-linear-gradient(
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.3) 2px,
-    rgba(0, 0, 0, 0.3) 4px
+    rgba(0, 0, 0, 0.35) 2px,
+    rgba(0, 0, 0, 0.35) 4px
   );
 }
 
@@ -330,78 +269,74 @@ body {
   }
 }
 
-/* Batimento de asas — 5 poses com pequena pausa (estilo frames); pivô no corpo */
+/* Asas: 5 poses com pausa; pivô no corpo (coordenadas do viewBox 32×22) */
 .wing-flap--upper {
   transform-box: view-box;
   transform-origin: 14px 10px;
-  animation: flap-upper 0.55s linear infinite;
+  animation: flap-upper 0.5s linear infinite;
 }
 
 .wing-flap--lower {
   transform-box: view-box;
   transform-origin: 16px 13px;
-  animation: flap-lower 0.55s linear infinite;
-  animation-delay: -0.28s;
+  animation: flap-lower 0.5s linear infinite;
+  animation-delay: -0.25s;
 }
 
 @keyframes flap-upper {
   0%,
-  16% {
-    transform: rotate(-14deg);
+  14% {
+    transform: rotate(-16deg);
   }
-  20%,
-  36% {
-    transform: rotate(-4deg);
+  18%,
+  34% {
+    transform: rotate(-5deg);
   }
-  40%,
-  56% {
-    transform: rotate(8deg);
+  38%,
+  54% {
+    transform: rotate(10deg);
   }
-  60%,
-  76% {
-    transform: rotate(19deg);
+  58%,
+  74% {
+    transform: rotate(22deg);
   }
-  80%,
-  96% {
-    transform: rotate(-1deg);
+  78%,
+  94% {
+    transform: rotate(2deg);
   }
   100% {
-    transform: rotate(-14deg);
+    transform: rotate(-16deg);
   }
 }
 
 @keyframes flap-lower {
   0%,
-  16% {
-    transform: rotate(11deg);
+  14% {
+    transform: rotate(14deg);
   }
-  20%,
-  36% {
-    transform: rotate(3deg);
+  18%,
+  34% {
+    transform: rotate(4deg);
   }
-  40%,
-  56% {
-    transform: rotate(-5deg);
+  38%,
+  54% {
+    transform: rotate(-6deg);
   }
-  60%,
-  76% {
-    transform: rotate(-17deg);
+  58%,
+  74% {
+    transform: rotate(-20deg);
   }
-  80%,
-  96% {
-    transform: rotate(1deg);
+  78%,
+  94% {
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(11deg);
+    transform: rotate(14deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .parallax__track--far,
-  .parallax__track--ridge,
-  .parallax__track--forest,
-  .parallax__track--bushes,
-  .parallax__track--ground {
+  .parallax-mover {
     animation: none !important;
   }
 
@@ -426,12 +361,13 @@ body {
   top: 0;
   z-index: 15;
   will-change: transform;
-  filter: drop-shadow(2px 4px 0 rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(2px 4px 0 rgba(0, 0, 0, 0.45));
   transition: filter 0.15s ease;
 }
 
 .phoenix__svg {
   display: block;
+  overflow: visible;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }

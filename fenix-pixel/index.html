@@ -22,29 +22,139 @@
     <div class="bg-autumn" aria-hidden="true"></div>
     <div class="sky-depth" aria-hidden="true"></div>
 
+    <!-- Pôr do sol: baixo, à direita, fora do centro -->
     <div class="sun-assembly" aria-hidden="true">
       <div class="sun-glow"></div>
       <div class="sun-disc"></div>
     </div>
 
-    <div class="parallax parallax--far" aria-hidden="true">
-      <div class="parallax__track parallax__track--far"></div>
+    <!-- Defs SVG: tiles repetidos no parallax (dois × 100vw por faixa) -->
+    <svg
+      class="landscape-defs"
+      aria-hidden="true"
+      width="0"
+      height="0"
+      focusable="false"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <defs>
+        <symbol id="tile-far" viewBox="0 0 400 160">
+          <path fill="#1e1218" d="M0,118 Q55,88 110,112 Q165,82 230,108 Q285,90 340,105 L400,98 L400,160 L0,160 Z"/>
+          <path fill="#2a1824" d="M0,128 Q70,102 130,125 Q195,98 260,120 Q315,108 400,118 L400,160 L0,160 Z"/>
+          <path fill="#352030" opacity="0.85" d="M0,138 Q90,118 160,135 Q230,118 310,132 L400,128 L400,160 L0,160 Z"/>
+        </symbol>
+        <symbol id="tile-ridge" viewBox="0 0 400 200">
+          <path fill="#2d1810" d="M0,145 Q48,115 96,138 Q144,108 200,132 Q256,112 304,128 Q352,118 400,125 L400,200 L0,200 Z"/>
+          <path fill="#3d2418" d="M0,158 Q60,128 120,152 Q180,130 240,150 Q300,138 360,148 L400,145 L400,200 L0,200 Z"/>
+        </symbol>
+        <symbol id="tile-forest" viewBox="0 0 400 260">
+          <!-- Troncos + copas pixel outono -->
+          <rect fill="#2a150c" x="32" y="168" width="10" height="52"/>
+          <rect fill="#b45309" x="14" y="118" width="46" height="58"/>
+          <rect fill="#d97706" x="22" y="88" width="30" height="38"/>
+          <rect fill="#eab308" x="28" y="68" width="18" height="28"/>
+          <rect fill="#1f1008" x="118" y="182" width="8" height="42"/>
+          <rect fill="#9a3412" x="98" y="138" width="48" height="52"/>
+          <rect fill="#ea580c" x="108" y="98" width="28" height="46"/>
+          <rect fill="#fbbf24" x="114" y="78" width="16" height="28"/>
+          <rect fill="#261208" x="198" y="175" width="12" height="50"/>
+          <rect fill="#78350f" x="172" y="128" width="64" height="54"/>
+          <rect fill="#ca8a04" x="186" y="92" width="36" height="42"/>
+          <rect fill="#fde047" x="196" y="72" width="16" height="26"/>
+          <rect fill="#1a0c06" x="288" y="188" width="9" height="38"/>
+          <rect fill="#c2410c" x="268" y="148" width="50" height="48"/>
+          <rect fill="#fb923c" x="278" y="108" width="30" height="44"/>
+          <rect fill="#fcd34d" x="284" y="88" width="18" height="26"/>
+          <rect fill="#2a1208" x="352" y="178" width="10" height="48"/>
+          <rect fill="#451a03" x="332" y="132" width="56" height="52"/>
+          <rect fill="#b45309" x="342" y="96" width="36" height="42"/>
+          <rect fill="#f59e0b" x="350" y="76" width="20" height="26"/>
+        </symbol>
+        <symbol id="tile-bushes" viewBox="0 0 400 120">
+          <path fill="#1a0f08" d="M0,120 L0,88 Q28,62 52,82 Q76,58 104,78 Q132,54 160,72 Q188,50 220,68 Q252,48 280,64 Q312,52 340,70 Q368,56 400,72 L400,120 Z"/>
+          <path fill="#2d1810" d="M0,120 L0,98 Q34,78 64,94 Q98,74 132,92 Q166,76 200,90 Q234,78 268,92 Q302,80 336,96 Q368,86 400,98 L400,120 Z"/>
+          <ellipse fill="#422006" cx="48" cy="96" rx="36" ry="22"/>
+          <ellipse fill="#5c2e0a" cx="128" cy="92" rx="42" ry="26"/>
+          <ellipse fill="#3d1f0c" cx="218" cy="98" rx="38" ry="24"/>
+          <ellipse fill="#6b3010" cx="302" cy="94" rx="44" ry="28"/>
+          <ellipse fill="#451a03" cx="368" cy="100" rx="40" ry="24"/>
+        </symbol>
+        <symbol id="tile-ground" viewBox="0 0 400 72">
+          <rect width="400" height="72" fill="#120805"/>
+          <rect y="0" width="400" height="18" fill="#1c0e08" opacity="0.9"/>
+          <g fill="#2a1510">
+            <rect x="0" y="40" width="6" height="4"/>
+            <rect x="24" y="52" width="8" height="4"/>
+            <rect x="56" y="44" width="6" height="4"/>
+            <rect x="88" y="56" width="10" height="4"/>
+            <rect x="120" y="42" width="6" height="4"/>
+            <rect x="152" y="50" width="8" height="4"/>
+            <rect x="184" y="46" width="6" height="4"/>
+            <rect x="216" y="54" width="10" height="4"/>
+            <rect x="248" y="40" width="6" height="4"/>
+            <rect x="280" y="48" width="8" height="4"/>
+            <rect x="312" y="44" width="6" height="4"/>
+            <rect x="344" y="52" width="10" height="4"/>
+            <rect x="376" y="42" width="8" height="4"/>
+          </g>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="parallax-band parallax-band--far" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 95s">
+        <svg class="parallax-tile" viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-far" xlink:href="#tile-far" width="400" height="160"/>
+        </svg>
+        <svg class="parallax-tile" viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-far" xlink:href="#tile-far" width="400" height="160"/>
+        </svg>
+      </div>
     </div>
 
-    <div class="parallax parallax--ridge" aria-hidden="true">
-      <div class="parallax__track parallax__track--ridge"></div>
+    <div class="parallax-band parallax-band--ridge" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 62s">
+        <svg class="parallax-tile" viewBox="0 0 400 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-ridge" xlink:href="#tile-ridge" width="400" height="200"/>
+        </svg>
+        <svg class="parallax-tile" viewBox="0 0 400 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-ridge" xlink:href="#tile-ridge" width="400" height="200"/>
+        </svg>
+      </div>
     </div>
 
-    <div class="parallax parallax--forest" aria-hidden="true">
-      <div class="parallax__track parallax__track--forest"></div>
+    <div class="parallax-band parallax-band--forest" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 38s">
+        <svg class="parallax-tile" viewBox="0 0 400 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-forest" xlink:href="#tile-forest" width="400" height="260"/>
+        </svg>
+        <svg class="parallax-tile" viewBox="0 0 400 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-forest" xlink:href="#tile-forest" width="400" height="260"/>
+        </svg>
+      </div>
     </div>
 
-    <div class="parallax parallax--bushes" aria-hidden="true">
-      <div class="parallax__track parallax__track--bushes"></div>
+    <div class="parallax-band parallax-band--bushes" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 24s">
+        <svg class="parallax-tile" viewBox="0 0 400 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-bushes" xlink:href="#tile-bushes" width="400" height="120"/>
+        </svg>
+        <svg class="parallax-tile" viewBox="0 0 400 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-bushes" xlink:href="#tile-bushes" width="400" height="120"/>
+        </svg>
+      </div>
     </div>
 
-    <div class="parallax parallax--ground" aria-hidden="true">
-      <div class="parallax__track parallax__track--ground"></div>
+    <div class="parallax-band parallax-band--ground" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 16s">
+        <svg class="parallax-tile" viewBox="0 0 400 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-ground" xlink:href="#tile-ground" width="400" height="72"/>
+        </svg>
+        <svg class="parallax-tile" viewBox="0 0 400 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-ground" xlink:href="#tile-ground" width="400" height="72"/>
+        </svg>
+      </div>
     </div>
 
     <div class="mist-near" aria-hidden="true"></div>
