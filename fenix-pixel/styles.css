@@ -1,0 +1,277 @@
+/* Fênix pixel — pôr do sol alaranjado; fênix em tons fogo/amarelo para destacar */
+
+:root {
+  --sky-top: #1e1035;
+  --sky-mid: #5c1a0f;
+  --sky-low: #b45309;
+  --horizon: #f59e0b;
+  --sand: #ea580c;
+  --sun-core: #fde047;
+  --sun-ring: #facc15;
+  --ember-1: #fef08a;
+  --ember-2: #fb923c;
+  --ember-3: #f87171;
+  --font-pixel: "Press Start 2P", ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+}
+
+body {
+  font-family: var(--font-pixel);
+  background: #0f0518;
+}
+
+.back {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 30;
+  font-size: 0.45rem;
+  line-height: 1.6;
+  color: #fde68a;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #000;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(251, 191, 36, 0.5);
+  image-rendering: pixelated;
+}
+
+.back:hover {
+  color: #fff;
+}
+
+.back:focus-visible {
+  outline: 2px solid #fde047;
+  outline-offset: 2px;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  cursor: crosshair;
+  background: linear-gradient(
+    185deg,
+    var(--sky-top) 0%,
+    #3d0a1a 18%,
+    var(--sky-mid) 38%,
+    #9a3412 58%,
+    var(--sky-low) 72%,
+    var(--horizon) 86%,
+    var(--sand) 100%
+  );
+  image-rendering: pixelated;
+}
+
+/* Camada extra para separar céu do fogo da ave: faixa mais escura atrás da zona de voo */
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 120% 55% at 50% 38%,
+    rgba(30, 16, 53, 0.45) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanlines leves (vibe retro, sem ser Pokémon) */
+.scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.12;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.35) 2px,
+    rgba(0, 0, 0, 0.35) 4px
+  );
+}
+
+.horizon-glow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28%;
+  background: linear-gradient(
+    to top,
+    rgba(253, 186, 116, 0.55) 0%,
+    rgba(234, 88, 12, 0.2) 45%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mountains {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22%;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, transparent 40%, rgba(124, 45, 18, 0.85) 40.1%) 0 100% / 35% 100% no-repeat,
+    linear-gradient(-135deg, transparent 40%, rgba(154, 52, 18, 0.75) 40.1%) 30% 100% / 40% 90% no-repeat,
+    linear-gradient(135deg, transparent 42%, rgba(67, 20, 7, 0.9) 42.1%) 55% 100% / 50% 100% no-repeat;
+  image-rendering: pixelated;
+}
+
+.sun-pixel {
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72px;
+  height: 72px;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--sun-core);
+  box-shadow:
+    0 0 0 4px var(--sun-ring),
+    0 0 0 8px rgba(250, 204, 21, 0.45),
+    0 0 0 12px rgba(234, 179, 8, 0.2);
+  image-rendering: pixelated;
+  clip-path: polygon(
+    0% 25%, 25% 25%, 25% 0%, 75% 0%, 75% 25%, 100% 25%,
+    100% 75%, 75% 75%, 75% 100%, 25% 100%, 25% 75%, 0% 75%
+  );
+  opacity: 0.95;
+}
+
+.embers-root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+}
+
+.ember {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  margin-top: -2px;
+  background: var(--ember-1);
+  box-shadow: 1px 0 0 var(--ember-2), 0 1px 0 var(--ember-3);
+  image-rendering: pixelated;
+  animation: ember-float 0.9s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ember-float {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, -8px), var(--dy, 18px)) scale(0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ember {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .phoenix--combust {
+    animation: none !important;
+  }
+}
+
+.phoenix {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  will-change: transform;
+  filter: drop-shadow(2px 4px 0 rgba(0, 0, 0, 0.35));
+  transition: filter 0.15s ease;
+}
+
+.phoenix__svg {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.phoenix--combust {
+  filter:
+    drop-shadow(0 0 6px #fff)
+    drop-shadow(0 0 14px #fde047)
+    drop-shadow(0 0 28px #fb923c)
+    drop-shadow(0 0 40px #f97316)
+    brightness(1.25);
+  animation: combust-pulse 0.35s steps(2, end) infinite;
+}
+
+@keyframes combust-pulse {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 8px #fff)
+      drop-shadow(0 0 18px #fde047)
+      drop-shadow(0 0 32px #fb923c)
+      brightness(1.35);
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 14px #fff)
+      drop-shadow(0 0 26px #fef08a)
+      drop-shadow(0 0 48px #f59e0b)
+      brightness(1.55);
+  }
+}
+
+.hint {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  max-width: min(92vw, 420px);
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 0.42rem;
+  line-height: 1.9;
+  color: #ffedd5;
+  text-align: center;
+  text-shadow: 0 1px 0 #000, 1px 1px 0 #000;
+  background: rgba(15, 5, 24, 0.55);
+  border: 2px solid rgba(251, 146, 60, 0.45);
+  pointer-events: none;
+}
+
+@media (min-width: 480px) {
+  .hint {
+    font-size: 0.5rem;
+  }
+}
+
+.hint strong {
+  color: #fde047;
+}
