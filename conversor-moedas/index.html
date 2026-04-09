@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Conversor de reais para dólares — informe o valor e a cotação.">
+  <title>Conversor de moedas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="back" href="../index.html">← Voltar ao portfólio</a>
+
+  <main class="panel">
+    <p class="eyebrow">Imersão Dev · exercício</p>
+    <h1>Conversor de moedas</h1>
+    <p class="lead">Informe o valor em <strong>reais (BRL)</strong> e a <strong>cotação do dólar</strong> (quantos reais custa 1 USD) para ver o equivalente em dólares.</p>
+
+    <label class="field">
+      <span>Valor em reais (R$)</span>
+      <input id="reais" type="text" inputmode="decimal" autocomplete="off" placeholder="Ex.: 100 ou 100,50">
+    </label>
+    <label class="field">
+      <span>Cotação do dólar (R$ por 1 USD)</span>
+      <input id="cotacao" type="text" inputmode="decimal" autocomplete="off" placeholder="Ex.: 5,20">
+    </label>
+
+    <button type="button" class="btn" id="btnConv">Converter</button>
+    <p class="result" id="result" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

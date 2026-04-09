@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Jogo Mentalista — adivinhe o número de 0 a 13.">
+  <title>Mentalista</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="back" href="../index.html">← Voltar ao portfólio</a>
+
+  <main class="panel">
+    <p class="eyebrow">Imersão Dev · exercício</p>
+    <h1>Mentalista</h1>
+    <p class="lead">Estou pensando em um número inteiro de <strong>0</strong> a <strong>13</strong>. Quantos chutes você precisa?</p>
+
+    <label class="field">
+      <span>Seu palpite</span>
+      <input id="valor" type="number" inputmode="numeric" min="0" max="13" step="1" placeholder="0–13">
+    </label>
+
+    <div class="actions">
+      <button type="button" class="btn btn--primary" id="btnChutar">Chutar</button>
+      <button type="button" class="btn btn--ghost" id="btnNovo">Novo número</button>
+    </div>
+
+    <p class="result" id="resultado" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
