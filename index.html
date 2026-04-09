@@ -1,54 +1,171 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Business card Sr-Goes beta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Juan Pablo Ferreira Goes — portfólio, projetos, graduação e MBA em Segurança da Informação.">
+  <title>Juan Pablo Ferreira Goes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
-
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div class="container">
-  <header class="cabecalho">
-    <div class="perfil">
-      <img class="perfil-foto" src="https://avatars.githubusercontent.com/u/91440876?s=400&u=a1b094b1517a59856a62e92602b6bd16ae79cf4c&v=4" />
-      <div class="titulo">
-        <h1>Juan Pablo Ferreira Goes</h1>
-        <h3>Estudante de Desenvolvimento de Sistemas, Desenvolvimento Web, Ethical Hacking</h3>
+  <div class="ambient" aria-hidden="true"></div>
 
+  <div class="container">
+    <header class="cabecalho">
+      <div class="perfil">
+        <div class="perfil-foto-wrap">
+          <img
+            class="perfil-foto"
+            src="https://avatars.githubusercontent.com/u/91440876?v=4&s=320"
+            alt="Foto de perfil de Juan Pablo Ferreira Goes no GitHub"
+            width="160"
+            height="160"
+            decoding="async"
+          >
+        </div>
+        <div class="titulo">
+          <p class="eyebrow">Olá, eu sou</p>
+          <h1>Juan Pablo Ferreira Goes</h1>
+          <p class="subtitulo">
+            Graduação em Análise e Desenvolvimento de Sistemas e MBA em Segurança da Informação.
+          </p>
+        </div>
       </div>
-    </div>
-    <div class="tema">
-      <button onClick="mudaModo()">Alterar tema</button>
-    </div>
-  </header>
-  <main class="portfolio">
-    <div class="projetos">
-      <ul>Projetos</ul>
-      <li class="projetos-item"><a href="https://codepen.io/Sr-Goes/full/gORdRee">Calculadora de média</a></li>
-      <li class="projetos-item"><a href="https://codepen.io/Sr-Goes/full/YzENQPd">Projeto H</a></li>
-      <li class="projetos-item"><a href="https://codepen.io/Sr-Goes/full/gORBMBo">Mentalista</a></li>
-      <li class="projetos-item"><a href="https://codepen.io/Sr-Goes/full/zYzJEpM">Conversor de moedas</a></li>
-      <li class="projetos-item"><a href="https://codepen.io/Sr-Goes/full/oNwaWja">CineAlura</a></li>
-    </div>
-    <div class="conquistas">
-      <ul>Conquistas</ul>
-      <li><img src="https://www2.proa.org.br/static/proa-color.png"></li>
-      <li><img src="https://scontent.frao1-2.fna.fbcdn.net/v/t1.6435-9/97035439_2953079494786331_6336757201914298368_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=0debeb&_nc_eui2=AeESvcLl0LbaKlo-G25SJE8cXxquodR3BxpfGq6h1HcHGnAqI9cbPktIlRm1XpMzAd-Yqpj-tBoJg-Gu1JRPQNFf&_nc_ohc=gMQ8nv-DQVwAX_9jtjO&_nc_ht=scontent.frao1-2.fna&oh=00_AT-8ECkc2npQLHaAeK9gb3YVc3ssrjAt3PRt1Gx34MYm-A&oe=621DCD3A"></li>
-      <p align="center">Formado pelo instituto Proa em 2020, realizei atividades focando a preparação ao mercado de trabalho e a lei Geral de Proteção de Dados.</p>
-      <li><img src="">
-      </li>
-      <li><img </div>
-  </main>
-</div>
-</div>
-<section class='box-redes'>
-  <div class='redes-sociais'>
-    <a target="_blank" class='github' href='https://github.com/Sr-Goes/'><img src="https://img.icons8.com/material-sharp/24/ffffff/github.png" /></a>
-    <a target="_blank" class='linkedin' href='https://www.linkedin.com/in/juan-pablo-goes'><img src="https://img.icons8.com/android/24/ffffff/linkedin.png" /></a>
-    <a target="_blank" class='instagram' href='https://www.instagram.com/sr.goes/'><img src="https://img.icons8.com/material/24/ffffff/instagram-new--v1.png" /></a>
-<!-- partial -->
-  <script  src="./script.js"></script>
+      <div class="tema">
+        <button type="button" class="tema-btn" id="temaBtn" aria-pressed="false" aria-label="Alternar tema claro e escuro">
+          <span class="tema-icon tema-icon--sol" aria-hidden="true"></span>
+          <span class="tema-label">Tema</span>
+        </button>
+      </div>
+    </header>
 
+    <main class="portfolio">
+      <section class="card projetos" aria-labelledby="titulo-projetos">
+        <div class="card-head card-head--solo">
+          <h2 id="titulo-projetos">Projetos</h2>
+        </div>
+        <ul class="projetos-lista">
+          <li class="projetos-item">
+            <a href="https://codepen.io/Sr-Goes/full/gORdRee" target="_blank" rel="noopener noreferrer">Calculadora de média</a>
+          </li>
+          <li class="projetos-item">
+            <a href="./projeto-h/index.html">Projeto H</a>
+          </li>
+          <li class="projetos-item">
+            <a href="https://codepen.io/Sr-Goes/full/gORBMBo" target="_blank" rel="noopener noreferrer">Mentalista</a>
+          </li>
+          <li class="projetos-item">
+            <a href="https://codepen.io/Sr-Goes/full/zYzJEpM" target="_blank" rel="noopener noreferrer">Conversor de moedas</a>
+          </li>
+          <li class="projetos-item">
+            <a href="https://codepen.io/Sr-Goes/full/oNwaWja" target="_blank" rel="noopener noreferrer">CineAlura</a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card conquistas" aria-labelledby="titulo-formacao">
+        <div class="card-head card-head--solo">
+          <h2 id="titulo-formacao">Formação &amp; Certificados</h2>
+        </div>
+        <div class="conquistas-slider">
+          <button
+            type="button"
+            class="slider-btn slider-btn--prev"
+            id="conquistasPrev"
+            aria-controls="conquistasTrack"
+            aria-label="Item anterior"
+          >
+            <span aria-hidden="true">‹</span>
+          </button>
+          <div class="conquistas-viewport">
+            <div
+              class="conquistas-track"
+              id="conquistasTrack"
+              tabindex="0"
+              role="region"
+              aria-roledescription="carrossel"
+              aria-label="Lista de formações e certificados"
+            >
+              <article class="conquista-slide">
+                <span class="conquista-tipo">Certificado</span>
+                <p class="conquista-inst">Udemy</p>
+                <h3 class="conquista-titulo">Web Front-end</h3>
+                <p class="conquista-sub">Frontend Web Design — certificação</p>
+              </article>
+              <article class="conquista-slide">
+                <span class="conquista-tipo">Formação acadêmica</span>
+                <p class="conquista-inst">Descomplica Faculdade Digital</p>
+                <h3 class="conquista-titulo">MBA em Segurança da Informação</h3>
+                <p class="conquista-sub">Information Technology</p>
+              </article>
+              <article class="conquista-slide">
+                <span class="conquista-tipo">Formação acadêmica</span>
+                <p class="conquista-inst">Descomplica Faculdade Digital</p>
+                <h3 class="conquista-titulo">Análise e Desenvolvimento de Sistemas</h3>
+                <p class="conquista-sub">Computer Systems Analysis</p>
+              </article>
+              <article class="conquista-slide">
+                <span class="conquista-tipo">Certificado</span>
+                <p class="conquista-inst">Booming</p>
+                <h3 class="conquista-titulo">Idioma Inglês Lv. A2</h3>
+                <p class="conquista-sub">Inglês — estudo de idiomas</p>
+              </article>
+              <article class="conquista-slide">
+                <span class="conquista-tipo">Certificado</span>
+                <p class="conquista-inst">Udemy</p>
+                <h3 class="conquista-titulo">Desenvolvimento Web</h3>
+                <p class="conquista-sub">Desenvolvimento Web — certificação</p>
+              </article>
+              <article class="conquista-slide">
+                <span class="conquista-tipo">Certificado</span>
+                <p class="conquista-inst">Udemy</p>
+                <h3 class="conquista-titulo">Ethical Hacking</h3>
+                <p class="conquista-sub">Hacking ético</p>
+              </article>
+              <article class="conquista-slide">
+                <span class="conquista-tipo">Formação</span>
+                <p class="conquista-inst">Instituto Proa</p>
+                <h3 class="conquista-titulo">Programa de capacitação profissional</h3>
+              </article>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="slider-btn slider-btn--next"
+            id="conquistasNext"
+            aria-controls="conquistasTrack"
+            aria-label="Próximo item"
+          >
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="box-redes" aria-label="Redes sociais">
+    <div class="redes-sociais">
+      <a class="rede github" href="https://github.com/Sr-Goes/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg class="rede-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+        </svg>
+      </a>
+      <a class="rede linkedin" href="https://www.linkedin.com/in/juan-pablo-goes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg class="rede-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+      <a class="rede instagram" href="https://www.instagram.com/sr.goes/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg class="rede-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.382-2.618 6.98-6.98C23.986 15.668 24 15.259 24 12c0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.98-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
 </body>
 </html>

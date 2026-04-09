@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Demonstração do formulário de registro de dose — Projeto H.">
+  <title>Projeto H — Registro de dose (demo)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="logo" href="index.html">
+        <span class="logo__mark" aria-hidden="true">
+          <svg class="logo__drop" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <path fill="currentColor" d="M12 0.5C11.2 0.5 2.5 14.5 2.5 22.5 2.5 28.3 6.7 32.5 12 32.5s9.5-4.2 9.5-10C21.5 14.5 12.8 0.5 12 0.5z"/>
+          </svg>
+        </span>
+        <span class="logo__text">Projeto H <small>Conceito</small></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="index.html">Início</a>
+        <a href="quem-somos.html">Quem sou</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-formulario">
+    <h1 class="page-title page-title--center">Registro de dose</h1>
+    <p class="form-page-intro form-page-intro--center">
+      Formulário de <strong>demonstração</strong> para testar o fluxo no celular ou no computador. Os dados não são enviados a nenhum servidor —
+      servem só para simular o preenchimento. Não substitui orientação médica nem registros oficiais.
+    </p>
+
+    <div class="panel form-dose">
+      <form id="formRegistroDose" action="#" method="post" novalidate>
+        <div class="form-group">
+          <label for="nome">Nome completo</label>
+          <input id="nome" name="nome" type="text" autocomplete="name" required maxlength="120" inputmode="text" placeholder="Como prefere ser identificado">
+        </div>
+
+        <div class="form-group">
+          <label for="motivo_tratamento">Motivo do tratamento</label>
+          <textarea id="motivo_tratamento" name="motivo_tratamento" required maxlength="2000" placeholder="Descreva de forma resumida o contexto clínico (texto genérico na demo)."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="numero_doses">Número de doses</label>
+          <input id="numero_doses" name="numero_doses" type="number" inputmode="numeric" min="1" max="999" step="1" required placeholder="Ex.: 1">
+        </div>
+
+        <div class="form-group">
+          <label for="lote">Lote</label>
+          <input id="lote" name="lote" type="text" autocomplete="off" required maxlength="80" placeholder="Identificação do lote">
+        </div>
+
+        <div class="form-group">
+          <label for="data_aplicacao">Data</label>
+          <input id="data_aplicacao" name="data_aplicacao" type="date" required>
+        </div>
+
+        <div class="form-group">
+          <label for="hora_aplicacao">Hora</label>
+          <input id="hora_aplicacao" name="hora_aplicacao" type="time" required>
+        </div>
+
+        <div class="form-group">
+          <label for="tipo_hemofilia" class="form-label">Tipo de hemofilia</label>
+          <select id="tipo_hemofilia" name="tipo_hemofilia" required>
+            <option value="">Selecione…</option>
+            <option value="a">Hemofilia A</option>
+            <option value="b">Hemofilia B</option>
+            <option value="c">Hemofilia C</option>
+            <option value="outro">Outro / em investigação</option>
+            <option value="nao_informar">Prefiro não informar</option>
+          </select>
+        </div>
+
+        <fieldset class="form-group" aria-required="true">
+          <legend>Está em profilaxia?</legend>
+          <div class="form-radio-group">
+            <label class="form-radio-option">
+              <input type="radio" name="profilaxia" value="sim" required>
+              Sim
+            </label>
+            <label class="form-radio-option">
+              <input type="radio" name="profilaxia" value="nao">
+              Não
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary">Registrar (demo)</button>
+          <a class="btn btn--ghost" href="index.html">Voltar ao início</a>
+        </div>
+      </form>
+
+      <p class="form-feedback" id="formFeedback" role="status" aria-live="polite" hidden></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Eu publico isto como demonstração conceitual e educativa; não é aconselhamento médico.</p>
+  </footer>
+
+  <script src="js/formulario.js"></script>
+</body>
+</html>
