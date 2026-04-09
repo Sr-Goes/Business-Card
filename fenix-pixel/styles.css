@@ -1,13 +1,6 @@
-/* Fênix pixel — pôr do sol alaranjado; fênix em tons fogo/amarelo para destacar */
+/* Fênix pixel — outono, pôr do sol, parallax, batimento de asas */
 
 :root {
-  --sky-top: #1e1035;
-  --sky-mid: #5c1a0f;
-  --sky-low: #b45309;
-  --horizon: #f59e0b;
-  --sand: #ea580c;
-  --sun-core: #fde047;
-  --sun-ring: #facc15;
   --ember-1: #fef08a;
   --ember-2: #fb923c;
   --ember-3: #f87171;
@@ -30,22 +23,22 @@ body {
 
 body {
   font-family: var(--font-pixel);
-  background: #0f0518;
+  background: #1a0f14;
 }
 
 .back {
   position: fixed;
   top: 12px;
   left: 12px;
-  z-index: 30;
+  z-index: 40;
   font-size: 0.45rem;
   line-height: 1.6;
   color: #fde68a;
   text-decoration: none;
   text-shadow: 0 1px 0 #000;
   padding: 8px 10px;
-  background: rgba(0, 0, 0, 0.35);
-  border: 2px solid rgba(251, 191, 36, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(180, 83, 9, 0.55);
   image-rendering: pixelated;
 }
 
@@ -64,108 +57,253 @@ body {
   height: 100%;
   min-height: 100dvh;
   cursor: crosshair;
+  overflow: hidden;
+}
+
+/* Céu outono — profundidade em camadas */
+.bg-autumn {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   background: linear-gradient(
-    185deg,
-    var(--sky-top) 0%,
-    #3d0a1a 18%,
-    var(--sky-mid) 38%,
-    #9a3412 58%,
-    var(--sky-low) 72%,
-    var(--horizon) 86%,
-    var(--sand) 100%
+    188deg,
+    #2d1b35 0%,
+    #4a2c3a 12%,
+    #6b3a3a 28%,
+    #8b4518 48%,
+    #b45309 68%,
+    #c2410c 82%,
+    #9a3412 94%,
+    #422006 100%
   );
+}
+
+.sky-depth {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 70% at 70% 25%, rgba(251, 191, 36, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse 80% 50% at 20% 35%, rgba(192, 132, 252, 0.08) 0%, transparent 40%),
+    linear-gradient(to bottom, rgba(45, 27, 53, 0.35) 0%, transparent 42%, rgba(66, 32, 6, 0.25) 100%);
+}
+
+/* Sol: baixo, à direita, levemente achatado (fim de tarde) */
+.sun-assembly {
+  position: absolute;
+  z-index: 2;
+  right: -2%;
+  bottom: 12%;
+  width: min(28vw, 200px);
+  height: min(22vw, 150px);
+  transform: rotate(-14deg);
+  pointer-events: none;
+}
+
+.sun-glow {
+  position: absolute;
+  inset: -40% -50% -30% -40%;
+  background: radial-gradient(
+    ellipse 55% 45% at 50% 50%,
+    rgba(254, 243, 199, 0.55) 0%,
+    rgba(251, 191, 36, 0.25) 35%,
+    rgba(234, 88, 12, 0.08) 55%,
+    transparent 70%
+  );
+  filter: blur(2px);
   image-rendering: pixelated;
 }
 
-/* Camada extra para separar céu do fogo da ave: faixa mais escura atrás da zona de voo */
-.scene::before {
-  content: "";
+.sun-disc {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 120% 55% at 50% 38%,
-    rgba(30, 16, 53, 0.45) 0%,
-    transparent 55%
-  );
-  pointer-events: none;
-  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: 68%;
+  height: 58%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(165deg, #fffbeb 0%, #fde047 35%, #f59e0b 85%, #ea580c 100%);
+  box-shadow:
+    0 0 0 3px rgba(251, 191, 36, 0.9),
+    0 0 0 6px rgba(234, 179, 8, 0.45),
+    inset 0 -4px 0 rgba(234, 88, 12, 0.35);
+  border-radius: 48% 52% 50% 50% / 46% 48% 52% 54%;
+  image-rendering: pixelated;
 }
 
-/* Scanlines leves (vibe retro, sem ser Pokémon) */
+/* Parallax: movimento contínuo direita → esquerda (ilusão de voo) */
+.parallax {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.parallax__track {
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  will-change: transform;
+}
+
+.parallax--far {
+  z-index: 3;
+  height: 42%;
+  opacity: 0.85;
+}
+
+.parallax__track--far {
+  animation: drift 110s linear infinite;
+  background-image: linear-gradient(
+      to top,
+      transparent 0%,
+      transparent 55%,
+      rgba(55, 35, 25, 0.5) 55%,
+      rgba(45, 28, 20, 0.75) 100%
+    ),
+    radial-gradient(ellipse 120% 80% at 20% 100%, rgba(62, 39, 28, 0.9) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 70% at 45% 100%, rgba(74, 45, 32, 0.85) 0%, transparent 50%),
+    radial-gradient(ellipse 90% 65% at 72% 100%, rgba(55, 38, 28, 0.88) 0%, transparent 48%),
+    radial-gradient(ellipse 110% 75% at 92% 100%, rgba(48, 32, 24, 0.9) 0%, transparent 52%);
+}
+
+.parallax--ridge {
+  z-index: 4;
+  height: 32%;
+}
+
+.parallax__track--ridge {
+  animation: drift 75s linear infinite;
+  background-image: linear-gradient(to top, transparent 40%, rgba(88, 52, 35, 0.4) 100%),
+    radial-gradient(ellipse 55% 90% at 8% 100%, #5c3d2e 0%, transparent 58%),
+    radial-gradient(ellipse 45% 85% at 22% 100%, #4a3020 0%, transparent 55%),
+    radial-gradient(ellipse 50% 88% at 38% 100%, #6b4423 0%, transparent 56%),
+    radial-gradient(ellipse 48% 82% at 55% 100%, #3d2818 0%, transparent 54%),
+    radial-gradient(ellipse 52% 86% at 72% 100%, #5c3a22 0%, transparent 55%),
+    radial-gradient(ellipse 46% 80% at 88% 100%, #422818 0%, transparent 52%);
+}
+
+.parallax--forest {
+  z-index: 5;
+  height: 38%;
+}
+
+/* Árvores outono — silhuetas + copas */
+.parallax__track--forest {
+  animation: drift 48s linear infinite;
+  background-image: linear-gradient(to top, rgba(30, 18, 12, 0.3) 0%, transparent 45%),
+    radial-gradient(ellipse 35% 55% at 5% 100%, #78350f 0%, transparent 62%),
+    radial-gradient(ellipse 42% 48% at 5% 78%, #b45309 0%, transparent 70%),
+    radial-gradient(ellipse 38% 52% at 5% 72%, #ca8a04 0%, transparent 68%),
+    radial-gradient(ellipse 32% 58% at 18% 100%, #422006 0%, transparent 60%),
+    radial-gradient(ellipse 45% 50% at 18% 76%, #d97706 0%, transparent 72%),
+    radial-gradient(ellipse 40% 54% at 18% 70%, #eab308 0%, transparent 70%),
+    radial-gradient(ellipse 36% 56% at 32% 100%, #451a03 0%, transparent 58%),
+    radial-gradient(ellipse 48% 52% at 32% 74%, #b45309 0%, transparent 74%),
+    radial-gradient(ellipse 44% 50% at 32% 68%, #f59e0b 0%, transparent 72%),
+    radial-gradient(ellipse 34% 58% at 48% 100%, #3f2d1f 0%, transparent 60%),
+    radial-gradient(ellipse 46% 51% at 48% 75%, #9a3412 0%, transparent 73%),
+    radial-gradient(ellipse 42% 48% at 48% 69%, #ea580c 0%, transparent 71%),
+    radial-gradient(ellipse 38% 57% at 63% 100%, #292018 0%, transparent 59%),
+    radial-gradient(ellipse 44% 50% at 63% 76%, #c2410c 0%, transparent 72%),
+    radial-gradient(ellipse 40% 52% at 63% 70%, #fb923c 0%, transparent 70%),
+    radial-gradient(ellipse 33% 59% at 78% 100%, #3d2415 0%, transparent 61%),
+    radial-gradient(ellipse 47% 49% at 78% 74%, #a16207 0%, transparent 73%),
+    radial-gradient(ellipse 43% 51% at 78% 68%, #fcd34d 0%, transparent 71%),
+    radial-gradient(ellipse 36% 57% at 92% 100%, #422006 0%, transparent 58%),
+    radial-gradient(ellipse 45% 50% at 92% 75%, #b45309 0%, transparent 72%),
+    radial-gradient(ellipse 41% 53% at 92% 69%, #fbbf24 0%, transparent 70%);
+}
+
+.parallax--bushes {
+  z-index: 6;
+  height: 22%;
+}
+
+.parallax__track--bushes {
+  animation: drift 32s linear infinite;
+  background-image: linear-gradient(to top, rgba(20, 12, 8, 0.5) 0%, transparent 100%),
+    radial-gradient(ellipse 28% 45% at 10% 100%, #292018 0%, transparent 55%),
+    radial-gradient(ellipse 32% 40% at 10% 88%, #422006 0%, transparent 60%),
+    radial-gradient(ellipse 26% 42% at 28% 100%, #1c1410 0%, transparent 54%),
+    radial-gradient(ellipse 30% 38% at 28% 90%, #5c2e0a 0%, transparent 58%),
+    radial-gradient(ellipse 24% 44% at 46% 100%, #241810 0%, transparent 53%),
+    radial-gradient(ellipse 34% 41% at 46% 87%, #78350f 0%, transparent 59%),
+    radial-gradient(ellipse 27% 43% at 64% 100%, #1a120c 0%, transparent 54%),
+    radial-gradient(ellipse 31% 39% at 64% 89%, #92400e 0%, transparent 57%),
+    radial-gradient(ellipse 25% 45% at 82% 100%, #201810 0%, transparent 52%),
+    radial-gradient(ellipse 33% 40% at 82% 88%, #6b3010 0%, transparent 58%),
+    radial-gradient(ellipse 29% 42% at 96% 100%, #2d1810 0%, transparent 55%),
+    radial-gradient(ellipse 31% 38% at 96% 91%, #451a03 0%, transparent 56%);
+}
+
+.parallax--ground {
+  z-index: 7;
+  height: 14%;
+}
+
+.parallax__track--ground {
+  animation: drift 22s linear infinite;
+  background-image: repeating-linear-gradient(
+      105deg,
+      #2d1810 0px,
+      #2d1810 3px,
+      #3d2418 3px,
+      #3d2418 6px,
+      #25140c 6px,
+      #25140c 9px
+    ),
+    linear-gradient(to top, #1a0f0a 0%, #3d2818 40%, transparent 100%),
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(180, 83, 9, 0.15) 0%, transparent 70%);
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.mist-near {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(42, 24, 14, 0.35) 0%,
+    transparent 25%,
+    transparent 70%,
+    rgba(45, 27, 35, 0.12) 100%
+  );
+}
+
 .scene::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 5;
-  opacity: 0.12;
+  z-index: 9;
+  opacity: 0.1;
   background: repeating-linear-gradient(
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.35) 2px,
-    rgba(0, 0, 0, 0.35) 4px
+    rgba(0, 0, 0, 0.3) 2px,
+    rgba(0, 0, 0, 0.3) 4px
   );
-}
-
-.horizon-glow {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 28%;
-  background: linear-gradient(
-    to top,
-    rgba(253, 186, 116, 0.55) 0%,
-    rgba(234, 88, 12, 0.2) 45%,
-    transparent 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-}
-
-.mountains {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 22%;
-  z-index: 2;
-  pointer-events: none;
-  background:
-    linear-gradient(135deg, transparent 40%, rgba(124, 45, 18, 0.85) 40.1%) 0 100% / 35% 100% no-repeat,
-    linear-gradient(-135deg, transparent 40%, rgba(154, 52, 18, 0.75) 40.1%) 30% 100% / 40% 90% no-repeat,
-    linear-gradient(135deg, transparent 42%, rgba(67, 20, 7, 0.9) 42.1%) 55% 100% / 50% 100% no-repeat;
-  image-rendering: pixelated;
-}
-
-.sun-pixel {
-  position: absolute;
-  top: 14%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 72px;
-  height: 72px;
-  z-index: 1;
-  pointer-events: none;
-  background: var(--sun-core);
-  box-shadow:
-    0 0 0 4px var(--sun-ring),
-    0 0 0 8px rgba(250, 204, 21, 0.45),
-    0 0 0 12px rgba(234, 179, 8, 0.2);
-  image-rendering: pixelated;
-  clip-path: polygon(
-    0% 25%, 25% 25%, 25% 0%, 75% 0%, 75% 25%, 100% 25%,
-    100% 75%, 75% 75%, 75% 100%, 25% 100%, 25% 75%, 0% 75%
-  );
-  opacity: 0.95;
 }
 
 .embers-root {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 8;
+  z-index: 18;
 }
 
 .ember {
@@ -192,7 +330,86 @@ body {
   }
 }
 
+/* Batimento de asas — 5 poses com pequena pausa (estilo frames); pivô no corpo */
+.wing-flap--upper {
+  transform-box: view-box;
+  transform-origin: 14px 10px;
+  animation: flap-upper 0.55s linear infinite;
+}
+
+.wing-flap--lower {
+  transform-box: view-box;
+  transform-origin: 16px 13px;
+  animation: flap-lower 0.55s linear infinite;
+  animation-delay: -0.28s;
+}
+
+@keyframes flap-upper {
+  0%,
+  16% {
+    transform: rotate(-14deg);
+  }
+  20%,
+  36% {
+    transform: rotate(-4deg);
+  }
+  40%,
+  56% {
+    transform: rotate(8deg);
+  }
+  60%,
+  76% {
+    transform: rotate(19deg);
+  }
+  80%,
+  96% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(-14deg);
+  }
+}
+
+@keyframes flap-lower {
+  0%,
+  16% {
+    transform: rotate(11deg);
+  }
+  20%,
+  36% {
+    transform: rotate(3deg);
+  }
+  40%,
+  56% {
+    transform: rotate(-5deg);
+  }
+  60%,
+  76% {
+    transform: rotate(-17deg);
+  }
+  80%,
+  96% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(11deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .parallax__track--far,
+  .parallax__track--ridge,
+  .parallax__track--forest,
+  .parallax__track--bushes,
+  .parallax__track--ground {
+    animation: none !important;
+  }
+
+  .wing-flap--upper,
+  .wing-flap--lower {
+    animation: none !important;
+  }
+
   .ember {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -207,9 +424,9 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 10;
+  z-index: 15;
   will-change: transform;
-  filter: drop-shadow(2px 4px 0 rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(2px 4px 0 rgba(0, 0, 0, 0.4));
   transition: filter 0.15s ease;
 }
 
@@ -245,33 +462,4 @@ body {
       drop-shadow(0 0 48px #f59e0b)
       brightness(1.55);
   }
-}
-
-.hint {
-  position: fixed;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 20;
-  max-width: min(92vw, 420px);
-  margin: 0;
-  padding: 10px 12px;
-  font-size: 0.42rem;
-  line-height: 1.9;
-  color: #ffedd5;
-  text-align: center;
-  text-shadow: 0 1px 0 #000, 1px 1px 0 #000;
-  background: rgba(15, 5, 24, 0.55);
-  border: 2px solid rgba(251, 146, 60, 0.45);
-  pointer-events: none;
-}
-
-@media (min-width: 480px) {
-  .hint {
-    font-size: 0.5rem;
-  }
-}
-
-.hint strong {
-  color: #fde047;
 }
