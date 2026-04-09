@@ -1,4 +1,4 @@
-/* Fênix pixel — outono, pôr do sol, parallax SVG, batimento de asas */
+/* Fênix pixel — céu estilo “voo” (camadas orgânicas), parallax, voo suave */
 
 :root {
   --ember-1: #fef08a;
@@ -51,7 +51,6 @@ body {
   outline-offset: 2px;
 }
 
-/* Altura explícita: filhos com % antes colapsavam → só se via o gradiente */
 .scene {
   position: relative;
   width: 100%;
@@ -63,73 +62,20 @@ body {
   overflow: hidden;
 }
 
-/* Céu outono — contraste com silhuetas escuras em baixo */
-.bg-autumn {
+/* Base do céu: tom único suave (o desenho vem dos SVG) */
+.bg-sky {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(
-    185deg,
-    #1f1428 0%,
-    #3d2840 18%,
-    #6b3a45 38%,
-    #9a4a32 58%,
-    #c45a28 72%,
-    #e88850 86%,
-    #f0b878 94%,
-    #d89060 100%
+  background-color: #6b5a72;
+  background-image: linear-gradient(
+    175deg,
+    #4a3d5c 0%,
+    #7a6280 28%,
+    #b87a68 58%,
+    #e8a878 82%,
+    #f2c49a 100%
   );
-}
-
-.sky-depth {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 90% 55% at 78% 18%, rgba(255, 220, 150, 0.2) 0%, transparent 42%),
-    radial-gradient(ellipse 70% 45% at 18% 28%, rgba(180, 140, 200, 0.1) 0%, transparent 38%),
-    linear-gradient(to bottom, rgba(30, 20, 40, 0.25) 0%, transparent 45%, rgba(120, 60, 30, 0.2) 100%);
-}
-
-/* Sol: pôr do sol — baixo, direita, inclinado, fora do centro */
-.sun-assembly {
-  position: absolute;
-  z-index: 2;
-  right: -3%;
-  bottom: 6%;
-  width: min(32vw, 220px);
-  height: min(24vw, 168px);
-  transform: rotate(-22deg);
-  pointer-events: none;
-}
-
-.sun-glow {
-  position: absolute;
-  inset: -45% -55% -35% -45%;
-  background: radial-gradient(
-    ellipse 52% 42% at 50% 50%,
-    rgba(255, 248, 220, 0.65) 0%,
-    rgba(251, 191, 36, 0.35) 32%,
-    rgba(234, 88, 12, 0.12) 55%,
-    transparent 72%
-  );
-  filter: blur(3px);
-}
-
-.sun-disc {
-  position: absolute;
-  left: 52%;
-  top: 58%;
-  width: 72%;
-  height: 52%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(158deg, #fffef0 0%, #fde047 28%, #f59e0b 78%, #ea580c 100%);
-  box-shadow:
-    0 0 0 3px rgba(254, 215, 120, 0.95),
-    0 0 0 7px rgba(251, 146, 60, 0.4),
-    inset 0 -5px 0 rgba(194, 65, 12, 0.45);
-  border-radius: 50% 48% 52% 50% / 46% 52% 48% 54%;
 }
 
 .landscape-defs {
@@ -140,44 +86,108 @@ body {
   pointer-events: none;
 }
 
-/* Parallax: dois tiles × 100vw → translate -100vw (direita para esquerda) */
+/* Sol: pôr do sol — baixo, direita, inclinado */
+.sun-assembly {
+  position: absolute;
+  z-index: 5;
+  right: -4%;
+  bottom: 5%;
+  width: min(34vw, 230px);
+  height: min(26vw, 176px);
+  transform: rotate(-24deg);
+  pointer-events: none;
+}
+
+.sun-glow {
+  position: absolute;
+  inset: -48% -58% -38% -48%;
+  background: radial-gradient(
+    ellipse 50% 40% at 50% 50%,
+    rgba(255, 250, 235, 0.7) 0%,
+    rgba(251, 191, 36, 0.38) 30%,
+    rgba(234, 88, 12, 0.1) 54%,
+    transparent 74%
+  );
+  filter: blur(4px);
+}
+
+.sun-disc {
+  position: absolute;
+  left: 54%;
+  top: 60%;
+  width: 70%;
+  height: 48%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(152deg, #fffef5 0%, #fde047 26%, #f59e0b 72%, #dc2626 100%);
+  box-shadow:
+    0 0 0 3px rgba(254, 215, 120, 0.95),
+    0 0 0 8px rgba(251, 146, 60, 0.35),
+    inset 0 -6px 0 rgba(185, 28, 28, 0.35);
+  border-radius: 52% 48% 50% 50% / 44% 54% 46% 56%;
+}
+
+/* Faixas de parallax */
 .parallax-band {
   position: absolute;
   left: 0;
-  bottom: 0;
   width: 100%;
   overflow: hidden;
   pointer-events: none;
 }
 
-.parallax-band--far {
-  z-index: 3;
-  height: 34vh;
+.parallax-band--cloud-far {
+  top: 0;
+  bottom: auto;
+  height: 52vh;
+  min-height: 160px;
+  z-index: 2;
+}
+
+.parallax-band--cloud-near {
+  top: 6vh;
+  bottom: auto;
+  height: 42vh;
+  min-height: 120px;
+  z-index: 4;
+}
+
+.parallax-band--range,
+.parallax-band--hills,
+.parallax-band--woods,
+.parallax-band--fringe,
+.parallax-band--soil {
+  bottom: 0;
+  top: auto;
+}
+
+.parallax-band--range {
+  z-index: 6;
+  height: 38vh;
+  min-height: 130px;
+}
+
+.parallax-band--hills {
+  z-index: 7;
+  height: 36vh;
   min-height: 120px;
 }
 
-.parallax-band--ridge {
-  z-index: 4;
-  height: 42vh;
-  min-height: 150px;
+.parallax-band--woods {
+  z-index: 8;
+  height: 50vh;
+  min-height: 200px;
 }
 
-.parallax-band--forest {
-  z-index: 5;
-  height: 52vh;
-  min-height: 220px;
+.parallax-band--fringe {
+  z-index: 9;
+  height: 16vh;
+  min-height: 64px;
 }
 
-.parallax-band--bushes {
-  z-index: 6;
-  height: 20vh;
-  min-height: 72px;
-}
-
-.parallax-band--ground {
-  z-index: 7;
-  height: 11vh;
-  min-height: 48px;
+.parallax-band--soil {
+  z-index: 10;
+  height: 9vh;
+  min-height: 44px;
 }
 
 .parallax-mover {
@@ -199,6 +209,12 @@ body {
   shape-rendering: crispEdges;
 }
 
+/* Nuvens: curvas suaves, sem “serrilhado” de pixel no fundo */
+.parallax-tile--soft {
+  image-rendering: auto;
+  shape-rendering: geometricPrecision;
+}
+
 @keyframes parallax-drift {
   from {
     transform: translate3d(0, 0, 0);
@@ -211,14 +227,14 @@ body {
 .mist-near {
   position: absolute;
   inset: 0;
-  z-index: 8;
+  z-index: 12;
   pointer-events: none;
   background: linear-gradient(
     to top,
-    rgba(25, 12, 8, 0.45) 0%,
-    transparent 22%,
-    transparent 68%,
-    rgba(40, 22, 35, 0.08) 100%
+    rgba(18, 8, 4, 0.35) 0%,
+    transparent 18%,
+    transparent 62%,
+    rgba(55, 40, 62, 0.06) 100%
   );
 }
 
@@ -227,14 +243,14 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 9;
-  opacity: 0.08;
+  z-index: 13;
+  opacity: 0.06;
   background: repeating-linear-gradient(
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.35) 2px,
-    rgba(0, 0, 0, 0.35) 4px
+    rgba(0, 0, 0, 0.28) 2px,
+    rgba(0, 0, 0, 0.28) 4px
   );
 }
 
@@ -269,69 +285,48 @@ body {
   }
 }
 
-/* Asas: 5 poses com pausa; pivô no corpo (coordenadas do viewBox 32×22) */
-.wing-flap--upper {
-  transform-box: view-box;
-  transform-origin: 14px 10px;
-  animation: flap-upper 0.5s linear infinite;
+/* Voo em suspenso (referência: sprite a flutuar) */
+.phoenix__bob {
+  animation: phoenix-glide 2.6s ease-in-out infinite;
 }
 
-.wing-flap--lower {
-  transform-box: view-box;
-  transform-origin: 16px 13px;
-  animation: flap-lower 0.5s linear infinite;
-  animation-delay: -0.25s;
-}
-
-@keyframes flap-upper {
+@keyframes phoenix-glide {
   0%,
-  14% {
-    transform: rotate(-16deg);
-  }
-  18%,
-  34% {
-    transform: rotate(-5deg);
-  }
-  38%,
-  54% {
-    transform: rotate(10deg);
-  }
-  58%,
-  74% {
-    transform: rotate(22deg);
-  }
-  78%,
-  94% {
-    transform: rotate(2deg);
-  }
   100% {
-    transform: rotate(-16deg);
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1.2deg);
   }
 }
 
-@keyframes flap-lower {
+/* Uma só membrana: pivô no ombro; ângulos curtos = não “descola” */
+.wing-flap {
+  transform-box: view-box;
+  transform-origin: 17px 11px;
+  animation: wing-cycle 0.45s linear infinite;
+}
+
+@keyframes wing-cycle {
   0%,
-  14% {
-    transform: rotate(14deg);
-  }
-  18%,
-  34% {
-    transform: rotate(4deg);
-  }
-  38%,
-  54% {
+  18% {
     transform: rotate(-6deg);
   }
-  58%,
-  74% {
-    transform: rotate(-20deg);
+  22%,
+  40% {
+    transform: rotate(2deg);
   }
-  78%,
-  94% {
-    transform: rotate(0deg);
+  44%,
+  62% {
+    transform: rotate(10deg);
   }
+  66%,
+  84% {
+    transform: rotate(4deg);
+  }
+  88%,
   100% {
-    transform: rotate(14deg);
+    transform: rotate(-6deg);
   }
 }
 
@@ -340,8 +335,8 @@ body {
     animation: none !important;
   }
 
-  .wing-flap--upper,
-  .wing-flap--lower {
+  .phoenix__bob,
+  .wing-flap {
     animation: none !important;
   }
 

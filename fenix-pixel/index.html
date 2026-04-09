@@ -19,16 +19,9 @@
     role="application"
     aria-label="Cena interativa com fênix."
   >
-    <div class="bg-autumn" aria-hidden="true"></div>
-    <div class="sky-depth" aria-hidden="true"></div>
+    <!-- Céu: cor base sólida; profundidade vem das camadas SVG -->
+    <div class="bg-sky" aria-hidden="true"></div>
 
-    <!-- Pôr do sol: baixo, à direita, fora do centro -->
-    <div class="sun-assembly" aria-hidden="true">
-      <div class="sun-glow"></div>
-      <div class="sun-disc"></div>
-    </div>
-
-    <!-- Defs SVG: tiles repetidos no parallax (dois × 100vw por faixa) -->
     <svg
       class="landscape-defs"
       aria-hidden="true"
@@ -39,120 +32,122 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
     >
       <defs>
-        <symbol id="tile-far" viewBox="0 0 400 160">
-          <path fill="#1e1218" d="M0,118 Q55,88 110,112 Q165,82 230,108 Q285,90 340,105 L400,98 L400,160 L0,160 Z"/>
-          <path fill="#2a1824" d="M0,128 Q70,102 130,125 Q195,98 260,120 Q315,108 400,118 L400,160 L0,160 Z"/>
-          <path fill="#352030" opacity="0.85" d="M0,138 Q90,118 160,135 Q230,118 310,132 L400,128 L400,160 L0,160 Z"/>
+        <!-- Nuvens distantes: formas orgânicas (curvas), não retângulos -->
+        <symbol id="tile-cloud-far" viewBox="0 0 520 220">
+          <path fill="#f5e6ef" fill-opacity="0.55" d="M40,142c18-32 52-48 78-38 12-28 48-42 76-30 8-22 38-34 62-22 20-18 52-14 68 6 24-8 48 4 52 28 28 4 40 32 22 52-14 18-40 20-62 12-10 14-32 18-48 8-16 20-48 24-70 10-22 16-52 12-70-8-26 2-50-10-56-32-30-6-48-28-32-50z"/>
+          <path fill="#edd8e4" fill-opacity="0.45" d="M180,118c22-26 58-34 86-18 14-24 46-36 72-22 18-20 50-18 64 4 26 0 42 22 28 40-12 16-36 18-54 10-8 18-34 22-50 12-18 16-46 18-66 4-24 12-54 8-72-12-28 4-50-8-48-32z"/>
+          <path fill="#e8d0dc" fill-opacity="0.4" d="M320,150c16-24 44-36 68-22 10-20 36-30 58-18 14-16 40-14 52 6 22 2 36 20 24 36-10 14-30 16-46 8-6 14-28 18-42 8-14 14-40 16-58 4-20 10-46 6-62-10-22 2-40-6-42-26z"/>
         </symbol>
-        <symbol id="tile-ridge" viewBox="0 0 400 200">
-          <path fill="#2d1810" d="M0,145 Q48,115 96,138 Q144,108 200,132 Q256,112 304,128 Q352,118 400,125 L400,200 L0,200 Z"/>
-          <path fill="#3d2418" d="M0,158 Q60,128 120,152 Q180,130 240,150 Q300,138 360,148 L400,145 L400,200 L0,200 Z"/>
+        <symbol id="tile-cloud-near" viewBox="0 0 520 200">
+          <path fill="#fff5f0" fill-opacity="0.7" d="M20,128c24-38 68-52 102-34 16-32 56-46 88-28 12-26 46-40 74-26 22-22 58-16 76 8 32 2 48 34 26 54-18 20-48 22-74 12-12 18-40 22-60 10-20 18-54 22-78 8-26 14-60 10-82-8-32 4-58-12-62-40z"/>
+          <path fill="#ffe8dc" fill-opacity="0.55" d="M240,108c20-28 54-38 82-22 14-24 48-36 74-20 18-18 48-14 62 8 28 4 42 28 24 44-14 16-40 18-58 10-10 16-34 20-50 10-18 14-46 16-66 4-22 10-52 6-70-10-26 2-46-8-50-30z"/>
         </symbol>
-        <symbol id="tile-forest" viewBox="0 0 400 260">
-          <!-- Troncos + copas pixel outono -->
-          <rect fill="#2a150c" x="32" y="168" width="10" height="52"/>
-          <rect fill="#b45309" x="14" y="118" width="46" height="58"/>
-          <rect fill="#d97706" x="22" y="88" width="30" height="38"/>
-          <rect fill="#eab308" x="28" y="68" width="18" height="28"/>
-          <rect fill="#1f1008" x="118" y="182" width="8" height="42"/>
-          <rect fill="#9a3412" x="98" y="138" width="48" height="52"/>
-          <rect fill="#ea580c" x="108" y="98" width="28" height="46"/>
-          <rect fill="#fbbf24" x="114" y="78" width="16" height="28"/>
-          <rect fill="#261208" x="198" y="175" width="12" height="50"/>
-          <rect fill="#78350f" x="172" y="128" width="64" height="54"/>
-          <rect fill="#ca8a04" x="186" y="92" width="36" height="42"/>
-          <rect fill="#fde047" x="196" y="72" width="16" height="26"/>
-          <rect fill="#1a0c06" x="288" y="188" width="9" height="38"/>
-          <rect fill="#c2410c" x="268" y="148" width="50" height="48"/>
-          <rect fill="#fb923c" x="278" y="108" width="30" height="44"/>
-          <rect fill="#fcd34d" x="284" y="88" width="18" height="26"/>
-          <rect fill="#2a1208" x="352" y="178" width="10" height="48"/>
-          <rect fill="#451a03" x="332" y="132" width="56" height="52"/>
-          <rect fill="#b45309" x="342" y="96" width="36" height="42"/>
-          <rect fill="#f59e0b" x="350" y="76" width="20" height="26"/>
+        <!-- Cordilheira: silhueta irregular -->
+        <symbol id="tile-range" viewBox="0 0 520 200">
+          <path fill="#2a1a22" d="M0,195 L0,118 L28,132 L52,95 L78,108 L102,78 L128,92 L156,62 L188,88 L212,72 L238,98 L268,68 L302,102 L328,82 L358,108 L388,88 L418,118 L448,98 L478,128 L502,108 L520,122 L520,195 Z"/>
+          <path fill="#3d2832" d="M0,195 L0,138 L36,148 L58,118 L88,132 L118,102 L148,122 L178,98 L208,118 L242,108 L272,128 L302,112 L332,132 L362,118 L392,138 L422,122 L452,142 L482,128 L512,148 L520,145 L520,195 Z"/>
         </symbol>
-        <symbol id="tile-bushes" viewBox="0 0 400 120">
-          <path fill="#1a0f08" d="M0,120 L0,88 Q28,62 52,82 Q76,58 104,78 Q132,54 160,72 Q188,50 220,68 Q252,48 280,64 Q312,52 340,70 Q368,56 400,72 L400,120 Z"/>
-          <path fill="#2d1810" d="M0,120 L0,98 Q34,78 64,94 Q98,74 132,92 Q166,76 200,90 Q234,78 268,92 Q302,80 336,96 Q368,86 400,98 L400,120 Z"/>
-          <ellipse fill="#422006" cx="48" cy="96" rx="36" ry="22"/>
-          <ellipse fill="#5c2e0a" cx="128" cy="92" rx="42" ry="26"/>
-          <ellipse fill="#3d1f0c" cx="218" cy="98" rx="38" ry="24"/>
-          <ellipse fill="#6b3010" cx="302" cy="94" rx="44" ry="28"/>
-          <ellipse fill="#451a03" cx="368" cy="100" rx="40" ry="24"/>
+        <!-- Colinas onduladas -->
+        <symbol id="tile-hills" viewBox="0 0 520 180">
+          <path fill="#3d2618" d="M0,175 C45,120 95,150 140,125 C185,100 230,140 275,118 C320,96 365,138 410,115 C455,92 495,125 520,108 L520,175 L0,175 Z"/>
+          <path fill="#4a301c" d="M0,175 C55,145 100,165 155,142 C210,119 255,158 310,138 C365,118 415,152 470,135 C495,125 512,132 520,128 L520,175 L0,175 Z"/>
         </symbol>
-        <symbol id="tile-ground" viewBox="0 0 400 72">
-          <rect width="400" height="72" fill="#120805"/>
-          <rect y="0" width="400" height="18" fill="#1c0e08" opacity="0.9"/>
-          <g fill="#2a1510">
-            <rect x="0" y="40" width="6" height="4"/>
-            <rect x="24" y="52" width="8" height="4"/>
-            <rect x="56" y="44" width="6" height="4"/>
-            <rect x="88" y="56" width="10" height="4"/>
-            <rect x="120" y="42" width="6" height="4"/>
-            <rect x="152" y="50" width="8" height="4"/>
-            <rect x="184" y="46" width="6" height="4"/>
-            <rect x="216" y="54" width="10" height="4"/>
-            <rect x="248" y="40" width="6" height="4"/>
-            <rect x="280" y="48" width="8" height="4"/>
-            <rect x="312" y="44" width="6" height="4"/>
-            <rect x="344" y="52" width="10" height="4"/>
-            <rect x="376" y="42" width="8" height="4"/>
-          </g>
+        <!-- Bosque: copas irregulares (path), não blocos retangulares -->
+        <symbol id="tile-woods" viewBox="0 0 520 260">
+          <path fill="#1a0e08" d="M32,255 L38,168 L52,175 L58,155 L72,168 L78,148 L92,162 L98,142 L118,158 L125,138 L142,152 L148,132 L168,148 L175,128 L192,145 L198,125 L218,142 L225,122 L242,138 L248,118 L268,135 L275,115 L292,132 L298,112 L318,128 L325,108 L342,125 L348,105 L368,122 L375,102 L392,118 L398,98 L418,115 L425,95 L442,112 L448,92 L468,108 L475,88 L492,105 L498,85 L518,102 L522,255 Z"/>
+          <path fill="#422006" opacity="0.92" d="M48,255 L55,188 L68,198 L75,178 L95,195 L102,175 L122,192 L128,172 L148,188 L155,168 L175,185 L182,165 L202,182 L208,162 L228,178 L235,158 L255,175 L262,155 L282,172 L288,152 L308,168 L315,148 L335,165 L342,145 L362,162 L368,142 L388,158 L395,138 L415,155 L422,135 L442,152 L448,132 L468,148 L475,128 L495,145 L502,125 L512,255 Z"/>
+          <path fill="#b45309" opacity="0.88" d="M58,255 L65,205 L82,218 L92,198 L112,215 L122,195 L142,212 L152,192 L172,208 L182,188 L202,205 L212,185 L232,202 L242,182 L262,198 L272,178 L292,195 L302,175 L322,192 L332,172 L352,188 L362,168 L382,185 L392,165 L412,182 L422,162 L442,178 L452,158 L472,175 L482,155 L502,255 Z"/>
+        </symbol>
+        <!-- Arbustos / frente -->
+        <symbol id="tile-fringe" viewBox="0 0 520 100">
+          <path fill="#140a06" d="M0,100 C32,72 58,88 88,70 C118,52 148,78 178,62 C208,46 238,72 268,58 C298,44 328,68 358,55 C388,42 418,62 448,50 C478,38 502,55 520,48 L520,100 L0,100 Z"/>
+          <path fill="#2a140a" d="M0,100 C38,82 68,92 102,78 C136,64 168,88 202,75 C236,62 268,85 302,72 C336,59 368,80 402,68 C436,56 468,75 502,65 L520,62 L520,100 L0,100 Z"/>
+        </symbol>
+        <symbol id="tile-soil" viewBox="0 0 520 64">
+          <path fill="#0d0604" d="M0,64 L520,64 L520,0 C480,8 440,4 400,12 C360,20 320,6 280,14 C240,22 200,8 160,16 C120,24 80,10 40,18 L0,12 Z"/>
         </symbol>
       </defs>
     </svg>
 
-    <div class="parallax-band parallax-band--far" aria-hidden="true">
-      <div class="parallax-mover" style="--drift: 95s">
-        <svg class="parallax-tile" viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-far" xlink:href="#tile-far" width="400" height="160"/>
+    <!-- Nuvens de fundo (parallax lento) -->
+    <div class="parallax-band parallax-band--cloud-far" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 140s">
+        <svg class="parallax-tile parallax-tile--soft" viewBox="0 0 520 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-cloud-far" xlink:href="#tile-cloud-far" width="520" height="220"/>
         </svg>
-        <svg class="parallax-tile" viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-far" xlink:href="#tile-far" width="400" height="160"/>
-        </svg>
-      </div>
-    </div>
-
-    <div class="parallax-band parallax-band--ridge" aria-hidden="true">
-      <div class="parallax-mover" style="--drift: 62s">
-        <svg class="parallax-tile" viewBox="0 0 400 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-ridge" xlink:href="#tile-ridge" width="400" height="200"/>
-        </svg>
-        <svg class="parallax-tile" viewBox="0 0 400 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-ridge" xlink:href="#tile-ridge" width="400" height="200"/>
+        <svg class="parallax-tile parallax-tile--soft" viewBox="0 0 520 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-cloud-far" xlink:href="#tile-cloud-far" width="520" height="220"/>
         </svg>
       </div>
     </div>
 
-    <div class="parallax-band parallax-band--forest" aria-hidden="true">
-      <div class="parallax-mover" style="--drift: 38s">
-        <svg class="parallax-tile" viewBox="0 0 400 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-forest" xlink:href="#tile-forest" width="400" height="260"/>
+    <div class="sun-assembly" aria-hidden="true">
+      <div class="sun-glow"></div>
+      <div class="sun-disc"></div>
+    </div>
+
+    <div class="parallax-band parallax-band--cloud-near" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 88s">
+        <svg class="parallax-tile parallax-tile--soft" viewBox="0 0 520 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-cloud-near" xlink:href="#tile-cloud-near" width="520" height="200"/>
         </svg>
-        <svg class="parallax-tile" viewBox="0 0 400 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-forest" xlink:href="#tile-forest" width="400" height="260"/>
+        <svg class="parallax-tile parallax-tile--soft" viewBox="0 0 520 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-cloud-near" xlink:href="#tile-cloud-near" width="520" height="200"/>
         </svg>
       </div>
     </div>
 
-    <div class="parallax-band parallax-band--bushes" aria-hidden="true">
-      <div class="parallax-mover" style="--drift: 24s">
-        <svg class="parallax-tile" viewBox="0 0 400 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-bushes" xlink:href="#tile-bushes" width="400" height="120"/>
+    <div class="parallax-band parallax-band--range" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 72s">
+        <svg class="parallax-tile" viewBox="0 0 520 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-range" xlink:href="#tile-range" width="520" height="200"/>
         </svg>
-        <svg class="parallax-tile" viewBox="0 0 400 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-bushes" xlink:href="#tile-bushes" width="400" height="120"/>
+        <svg class="parallax-tile" viewBox="0 0 520 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-range" xlink:href="#tile-range" width="520" height="200"/>
         </svg>
       </div>
     </div>
 
-    <div class="parallax-band parallax-band--ground" aria-hidden="true">
-      <div class="parallax-mover" style="--drift: 16s">
-        <svg class="parallax-tile" viewBox="0 0 400 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-ground" xlink:href="#tile-ground" width="400" height="72"/>
+    <div class="parallax-band parallax-band--hills" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 52s">
+        <svg class="parallax-tile" viewBox="0 0 520 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-hills" xlink:href="#tile-hills" width="520" height="180"/>
         </svg>
-        <svg class="parallax-tile" viewBox="0 0 400 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <use href="#tile-ground" xlink:href="#tile-ground" width="400" height="72"/>
+        <svg class="parallax-tile" viewBox="0 0 520 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-hills" xlink:href="#tile-hills" width="520" height="180"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="parallax-band parallax-band--woods" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 34s">
+        <svg class="parallax-tile" viewBox="0 0 520 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-woods" xlink:href="#tile-woods" width="520" height="260"/>
+        </svg>
+        <svg class="parallax-tile" viewBox="0 0 520 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-woods" xlink:href="#tile-woods" width="520" height="260"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="parallax-band parallax-band--fringe" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 22s">
+        <svg class="parallax-tile" viewBox="0 0 520 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-fringe" xlink:href="#tile-fringe" width="520" height="100"/>
+        </svg>
+        <svg class="parallax-tile" viewBox="0 0 520 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-fringe" xlink:href="#tile-fringe" width="520" height="100"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="parallax-band parallax-band--soil" aria-hidden="true">
+      <div class="parallax-mover" style="--drift: 14s">
+        <svg class="parallax-tile" viewBox="0 0 520 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-soil" xlink:href="#tile-soil" width="520" height="64"/>
+        </svg>
+        <svg class="parallax-tile" viewBox="0 0 520 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tile-soil" xlink:href="#tile-soil" width="520" height="64"/>
         </svg>
       </div>
     </div>
@@ -162,58 +157,61 @@
     <div id="embers-root" class="embers-root" aria-hidden="true"></div>
 
     <div id="phoenix" class="phoenix" aria-hidden="true">
-      <svg
-        class="phoenix__svg"
-        viewBox="0 0 32 22"
-        width="160"
-        height="110"
-        xmlns="http://www.w3.org/2000/svg"
-        shape-rendering="crispEdges"
-        focusable="false"
-      >
-        <g class="fenix-tail-body">
-          <rect x="0" y="8" width="2" height="2" fill="#b91c1c"/>
-          <rect x="0" y="10" width="3" height="3" fill="#dc2626"/>
-          <rect x="2" y="7" width="2" height="4" fill="#ea580c"/>
-          <rect x="3" y="11" width="4" height="2" fill="#f97316"/>
-          <rect x="4" y="6" width="3" height="3" fill="#fb923c"/>
-          <rect x="6" y="9" width="3" height="4" fill="#fdba74"/>
-          <rect x="8" y="8" width="5" height="5" fill="#7c2d12"/>
-          <rect x="9" y="7" width="4" height="6" fill="#9a3412"/>
-          <rect x="10" y="8" width="4" height="4" fill="#c2410c"/>
-          <rect x="11" y="9" width="3" height="3" fill="#ea580c"/>
-          <rect x="14" y="9" width="3" height="3" fill="#fff7ed"/>
-          <rect x="15" y="10" width="2" height="2" fill="#ffedd5"/>
-          <rect x="20" y="8" width="3" height="3" fill="#f97316"/>
-          <rect x="23" y="9" width="2" height="2" fill="#fdba74"/>
-          <rect x="25" y="9" width="3" height="2" fill="#fef3c7"/>
-          <rect x="28" y="10" width="2" height="1" fill="#fffbeb"/>
-          <rect x="21" y="7" width="2" height="2" fill="#fcd34d"/>
-        </g>
-
-        <g transform="translate(14, 10)">
-          <g class="wing-flap wing-flap--upper">
-            <g transform="translate(-14, -10)">
-              <rect x="12" y="4" width="2" height="2" fill="#fcd34d"/>
-              <rect x="13" y="3" width="4" height="3" fill="#fbbf24"/>
-              <rect x="14" y="2" width="6" height="4" fill="#f59e0b"/>
-              <rect x="16" y="1" width="5" height="3" fill="#fb923c"/>
-              <rect x="18" y="0" width="4" height="2" fill="#fed7aa"/>
-            </g>
+      <div class="phoenix__bob">
+        <svg
+          class="phoenix__svg"
+          viewBox="0 0 48 28"
+          width="176"
+          height="104"
+          xmlns="http://www.w3.org/2000/svg"
+          shape-rendering="crispEdges"
+          focusable="false"
+        >
+          <!-- Corpo + ponte do ombro (fixos): asas não “flutuam” -->
+          <g class="fenix-core">
+            <rect x="0" y="12" width="2" height="2" fill="#7f1d1d"/>
+            <rect x="0" y="14" width="2" height="4" fill="#7f1d1d"/>
+            <rect x="0" y="18" width="2" height="2" fill="#7f1d1d"/>
+            <rect x="2" y="10" width="2" height="2" fill="#7f1d1d"/>
+            <rect x="2" y="12" width="2" height="6" fill="#b91c1c"/>
+            <rect x="4" y="9" width="2" height="2" fill="#b91c1c"/>
+            <rect x="4" y="11" width="2" height="6" fill="#dc2626"/>
+            <rect x="6" y="8" width="2" height="2" fill="#ea580c"/>
+            <rect x="6" y="10" width="2" height="7" fill="#ea580c"/>
+            <rect x="8" y="8" width="2" height="8" fill="#f97316"/>
+            <rect x="10" y="8" width="2" height="8" fill="#9a3412"/>
+            <rect x="12" y="8" width="2" height="8" fill="#c2410c"/>
+            <rect x="14" y="9" width="2" height="7" fill="#ea580c"/>
+            <rect x="13" y="11" width="1" height="2" fill="#b45309"/>
+            <!-- Ponte ombro (mesma linha que a membrana) -->
+            <rect x="16" y="10" width="3" height="5" fill="#ea580c"/>
+            <rect x="15" y="11" width="2" height="3" fill="#c2410c"/>
+            <rect x="19" y="10" width="2" height="4" fill="#fdba74"/>
+            <rect x="21" y="9" width="2" height="5" fill="#fb923c"/>
+            <rect x="23" y="10" width="2" height="4" fill="#fff7ed"/>
+            <rect x="25" y="11" width="2" height="2" fill="#ffedd5"/>
+            <rect x="27" y="8" width="2" height="3" fill="#fcd34d"/>
+            <rect x="29" y="9" width="2" height="4" fill="#f97316"/>
+            <rect x="31" y="10" width="2" height="2" fill="#fdba74"/>
+            <rect x="33" y="10" width="2" height="2" fill="#fef3c7"/>
+            <rect x="35" y="11" width="2" height="1" fill="#fffbeb"/>
           </g>
-        </g>
-
-        <g transform="translate(16, 13)">
-          <g class="wing-flap wing-flap--lower">
-            <g transform="translate(-16, -13)">
-              <rect x="13" y="12" width="3" height="2" fill="#f97316"/>
-              <rect x="14" y="13" width="5" height="3" fill="#ea580c"/>
-              <rect x="16" y="14" width="6" height="3" fill="#c2410c"/>
-              <rect x="19" y="15" width="4" height="2" fill="#9a3412"/>
-            </g>
+          <!-- Membrana (só o que sai do corpo); pivô 17,11 — sem bloco solto -->
+          <g class="wing-flap">
+            <rect x="13" y="8" width="3" height="3" fill="#b45309"/>
+            <rect x="11" y="6" width="5" height="4" fill="#ea580c"/>
+            <rect x="9" y="4" width="7" height="4" fill="#f59e0b"/>
+            <rect x="7" y="2" width="8" height="4" fill="#fbbf24"/>
+            <rect x="5" y="1" width="8" height="3" fill="#fcd34d"/>
+            <rect x="3" y="0" width="6" height="3" fill="#fed7aa"/>
+            <rect x="12" y="11" width="4" height="2" fill="#9a3412"/>
+            <rect x="10" y="12" width="6" height="3" fill="#c2410c"/>
+            <rect x="8" y="14" width="8" height="3" fill="#ea580c"/>
+            <rect x="6" y="16" width="9" height="3" fill="#f97316"/>
+            <rect x="5" y="18" width="8" height="2" fill="#c2410c"/>
           </g>
-        </g>
-      </svg>
+        </svg>
+      </div>
     </div>
   </div>
 
